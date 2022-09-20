@@ -15,7 +15,8 @@ function App() {
   // Handle card selection
   const handleClick = (card) => {
     if (!disabled) {
-      pickOne ? setPickTwo(card) : setPickOne(card);
+      // "pickOne.id !== card.id" prevents the same card from being selected twice (Exemple: double click)
+      pickOne && pickOne.id !== card.id ? setPickTwo(card) : setPickOne(card);
     }
   };
 
@@ -39,8 +40,8 @@ function App() {
 
     // Two cards have been clicked
     if (pickOne && pickTwo) {
-      // Check if the cards the same
-      if (pickOne.image === pickTwo.image) {
+      // Check if the cards the same and if the id are different
+      if ((pickOne.image === pickTwo.image)) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
             if (card.image === pickOne.image) {
